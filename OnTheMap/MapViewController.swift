@@ -39,9 +39,9 @@ class MapViewController: UIViewController,UserLocationDelegate,MKMapViewDelegate
             // check values of pin
             try checktempPin(placeName: placeName, mediaUrl: mediaUrl , lat: lat, long: long)
             
-            let logoutData = "{\"uniqueKey\": \"2318\", \"firstName\": \"John\", \"lastName\": \"Smith\",\"mapString\": \"\(placeName!)\", \"mediaURL\": \"\(mediaUrl!)\",\"latitude\": \(lat), \"longitude\": \(long)}"
+            let DataOut = "{\"uniqueKey\": \"2318\", \"firstName\": \"John\", \"lastName\": \"Smith\",\"mapString\": \"\(placeName!)\", \"mediaURL\": \"\(mediaUrl!)\",\"latitude\": \(lat), \"longitude\": \(long)}"
             // send POST of newly created pin
-            postRequest(url:parseUrl ,jsonRequest:logoutData) { (output,response,error) in
+            postRequest(url:ontheMapUrlLocations ,jsonRequest:DataOut) { (output,response,error) in
                 do{
                     // check response
                     try noResponse(data: output, response: response, error: error)
@@ -52,7 +52,7 @@ class MapViewController: UIViewController,UserLocationDelegate,MKMapViewDelegate
                     let okAction = UIAlertAction(title: "Ok", style: .default, handler: nil)
                     alertController.addAction(okAction)
                     self.present(alertController, animated: true, completion: nil)
-                   
+                    self.refesh(1)
                 }catch{
                     error.alert(with: self)
                 }
@@ -109,7 +109,7 @@ class MapViewController: UIViewController,UserLocationDelegate,MKMapViewDelegate
     // Get request to repopulates pin on map
     private func getPins() {
         self.loadPinsOnMapIndicator.isHidden = false
-        getRequest(url: parseUrl){ (output,response,error) in
+        getRequest(url: ontheMapUrlLocationsWithQuery){ (output,response,error) in
             do {
                 // check responses
                 try noResponse(data: output, response: response, error: error)

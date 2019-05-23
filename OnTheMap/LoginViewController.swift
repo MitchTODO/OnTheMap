@@ -48,7 +48,7 @@ class LoginViewController: UIViewController,UITextFieldDelegate {
                             // check response data (output,response,error)
                             try noResponse(data: output,response: response,error: error)
                             let response = response as? HTTPURLResponse
-                            try badRequest(httpCode: response!.statusCode,errorToThrow: loginError.invalidConnection)
+                            try badRequest(httpCode: response!.statusCode,errorToThrow: loginError.invalidAccount)
                             // decode response into Struct
                             try jsonDecoder(data: output!, type: loginResponse.self,takeFive: true) { (loginStruct) in
                                 // hold struct as global (SessionData)

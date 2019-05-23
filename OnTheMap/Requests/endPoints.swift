@@ -12,38 +12,15 @@ import UIKit
 
 
 /*
- MARK: parseEndpoint
- struct to hold strings for url
- use strings to build out url
-*/
-
-struct parseEndpoint {
-    static let scheme = "https"
-    static let host = "parse.udacity.com"
-    static let path = "/parse/classes/StudentLocation"
-}
-
-var parseComponents:URLComponents{
-    var components = URLComponents()
-    components.scheme = parseEndpoint.scheme
-    components.host = parseEndpoint.host
-    components.path = parseEndpoint.path
-    return components
-}
-
-let parseUrl:URL = parseComponents.url!
-
-
-/*
  MARK: OnTheMapEndpoint
  struct to hold strings for url
  use strings to build out url
 */
-
 struct onTheMapEndpoint {
     static let scheme = "https"
     static let host = "onthemap-api.udacity.com"
     static let path = "/v1/session"
+    static let pathTolocations = "/v1/StudentLocation"
 }
 
 var onthemapComponents:URLComponents{
@@ -54,4 +31,24 @@ var onthemapComponents:URLComponents{
     return components
 }
 
+var onthemapComponentsToLocations:URLComponents{
+    var components = URLComponents()
+    components.scheme = onTheMapEndpoint.scheme
+    components.host = onTheMapEndpoint.host
+    components.path = onTheMapEndpoint.pathTolocations
+    return components
+}
+
+var onthemapComponentsToLocationsQuery:URLComponents{
+    var components = URLComponents()
+    components.scheme = onTheMapEndpoint.scheme
+    components.host = onTheMapEndpoint.host
+    components.path = onTheMapEndpoint.pathTolocations
+    components.queryItems = [URLQueryItem(name: "limit", value: "100"),URLQueryItem(name:"order", value:"-updatedAt")]
+    return components
+}
+
+
 let ontheMapUrl:URL = onthemapComponents.url!
+let ontheMapUrlLocations:URL = onthemapComponentsToLocations.url!
+let ontheMapUrlLocationsWithQuery:URL = onthemapComponentsToLocationsQuery.url!
