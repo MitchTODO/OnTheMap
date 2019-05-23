@@ -10,7 +10,6 @@
 		30090DCB2284BBEE00BCBA38 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30090DCA2284BBEE00BCBA38 /* LoginViewController.swift */; };
 		30090DCD2284BC1A00BCBA38 /* endPoints.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30090DCC2284BC1A00BCBA38 /* endPoints.swift */; };
 		30090DCF2284BC4300BCBA38 /* requestHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30090DCE2284BC4300BCBA38 /* requestHandler.swift */; };
-		300F5B2F2295EC8800A3F3D8 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 300F5B2E2295EC8800A3F3D8 /* Images.xcassets */; };
 		3013FC49228655A200CA10B3 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3013FC48228655A200CA10B3 /* MapViewController.swift */; };
 		301D18C62292365000391874 /* errorHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 301D18C52292365000391874 /* errorHandler.swift */; };
 		30239D1D2289F3D9006B4B0B /* TableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30239D1C2289F3D9006B4B0B /* TableViewCell.swift */; };
@@ -26,7 +25,6 @@
 		30090DCA2284BBEE00BCBA38 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		30090DCC2284BC1A00BCBA38 /* endPoints.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = endPoints.swift; sourceTree = "<group>"; };
 		30090DCE2284BC4300BCBA38 /* requestHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = requestHandler.swift; sourceTree = "<group>"; };
-		300F5B2E2295EC8800A3F3D8 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = ../../../../.Trash/Images.xcassets; sourceTree = "<group>"; };
 		3013FC48228655A200CA10B3 /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		301D18C52292365000391874 /* errorHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = errorHandler.swift; sourceTree = "<group>"; };
 		30239D1C2289F3D9006B4B0B /* TableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewCell.swift; sourceTree = "<group>"; };
@@ -107,7 +105,6 @@
 				3098DFEB22848F2500C67704 /* LaunchScreen.storyboard */,
 				3098DFEE22848F2500C67704 /* Info.plist */,
 				306131BD2295CED600859EEC /* Assets.xcassets */,
-				300F5B2E2295EC8800A3F3D8 /* Images.xcassets */,
 			);
 			path = OnTheMap;
 			sourceTree = "<group>";
@@ -171,7 +168,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				3098DFED22848F2500C67704 /* LaunchScreen.storyboard in Resources */,
-				300F5B2F2295EC8800A3F3D8 /* Images.xcassets in Resources */,
 				306131BE2295CED600859EEC /* Assets.xcassets in Resources */,
 				3098DFE822848F2300C67704 /* Main.storyboard in Resources */,
 			);
