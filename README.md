@@ -1,38 +1,37 @@
 # On the Map
 
-#### Description: IOS app that allows a user to post locations containing a url. As well as view other postings within a MKMapView
+#### Description: IOS app that allows a user to post locations containing a url. As well as view other users postings within a MKMapView
 
 ---
 
 ## ViewControllers
 
-Button names and functionality changes throughout the app allowing for a simpler UI. Network request are present, activity Indicators are used to help display the app is currently active.
-
+During a network request activity indicators are used to help display that the app is currently active.
 
 ### LoginViewController
 
 Allows a user to login through a post request with user data from two text fields. Session ID and key is returned from the post request and stored.
 
 Contains:
-1. Two text fields allowing users to enter user credentials to Udacity's login API.
-2. A single button allows execute the POST request sending credentials to the server.
+1. Two text fields allows users to enter credentials to Udacity's login API.
+2. A single button executes the POST request sending credentials to the server.
 
 <img src="readmePic/loginScreen.png" alt="LoginViewController"  width="240">
 
 ### MapViewController
 
 Contains:
-1. Navigational bar with three buttons logout, refresh and add a pin.
-2. Tool bar with a single button that switches to a tableView.
-3. MKMapView with clickable annotations (Pins) being displayed with user information.
+1. Navigational bar with three buttons; logout, refresh and add a pin.
+2. Tool bar button that switches to a TableViewController.
+3. MKMapView with clickable annotations (Pins) are displayed with user information.
 
-Users can view locations on the MKMapView, each location is represented by a pin (annotation). When a pin is selected location and url will be displayed with a disclosure button. When pressed again alert will be presented asking if the url should be opened in Safari.
+Users can view locations on the MKMapView, each location is represented by a pin. When a pin is selected location and url will be displayed with a disclosure button. Pressed again, alert will be presented asking if the url should be opened in Safari.
 
-Logout button will preform a delete request with Session data stored from login and taken back to LoginViewController. This button is also used to cancel creating a pin by changing the button title and tag.
+Logout button will perform a delete request with session data and then taken back to the LoginViewController. This button is also used to cancel when creating a pin by changing the button title and tag.
 
 #### getPins function
 
-getPins function is used within the view did load and the refresh button. Responsible for preforming a get request for the last 100 student locations and populating the StudentLocation array and MKMapView.
+"getPins" function is used within the view did load and the refresh button. Responsible for performing a get request for the last 100 student locations and populating the StudentLocation array and MKMapView.
 
 
 <img src="readmePic/pinsOnMap.png" alt="MapViewController"  width="240">
@@ -44,12 +43,11 @@ getPins function is used within the view did load and the refresh button. Respon
 ### AddPinViewController
 
 Contains:
-1. Two text fields allowing user to enter a Location and url.
-2. Single button executing a delegate to mapView with location and url data.
-3. Navigational bar with a single button canceling creating a pin.
+1. Two text fields allow user to enter a Location and url.
+2. Single button executes a delegate to mapView with location and url data.
+3. Navigational bar button cancels pin creation.
 
-When location and url have been entered and button is pressed. Geocoding of the location will return coordinates of the location, if successful a delegate is triggered passing coordinates, location and url to MapViewController. Cancel button allows a user to go back to the MapViewController.
-When delegate is triggered coordinates are used on the map to display the location allowing the user to verify its the correct location
+When location and url have been entered and button is pressed, geocoding of the location will return coordinates. If successful, a delegate is triggered passing coordinates, location and url to MapViewController. These Coordinates are then used on the map to display the location allowing the user to verify. Cancel button allows a user to go back to the MapViewController.
 
 <img src="readmePic/addPin.png" alt="AddPinViewController"  width="240">
 
@@ -57,9 +55,9 @@ When delegate is triggered coordinates are used on the map to display the locati
 
 Contains:
 1. Navigational bar with a single back button
-2. 100 table cells of user locations
+2. 100 cells of user locations
 
-Table view will allow a user to find a location faster than using the MapView. A simple segue is used from the MapViewController to enter TableViewController. Each cell contains two labels stacked, one to display the location other to display the url. When a cell is selected a alert will be presented; asking if the url should be opened in Safari.
+ A simple segue is used from the MapViewController to enter TableViewController. Each cell contains two labels to display the location and url. When a cell is selected an alert will be present asking if the url should be opened in Safari.
 
 <img src="readmePic/listView.png" alt="TableViewController"  width="240">
 
@@ -75,10 +73,13 @@ Contains:
 3. Guard throwable functions
 
 
-Custom errors allow for friendlier messages. Code is kept clean by errors separate from the viewControllers, single alert function displays the error to the user. Throwable functions with guard statements allow for reuse between views.
+Code is kept clean by errors separate from the viewControllers
+
 
 <img src="readmePic/errorOne.png" alt="Error"  width="240">
 <img src="readmePic/nologin.png" alt="Error"  width="240">
+
+#### Custom errors allow for friendlier messages.
 
 ```js
 enum loginError: Error {
@@ -105,15 +106,51 @@ extension loginError: CustomStringConvertible {
 
 ```
 
+#### A single alert function displays the error to the user.
+```js
+
+extension Error {
+
+    func alert(with controller: UIViewController) {
+        let alertController = UIAlertController(title: nil, message: "\(self)", preferredStyle: .alert)
+        let okAction = UIAlertAction(title: "Dismiss", style: .default, handler: nil)
+        alertController.addAction(okAction)
+        controller.present(alertController, animated: true, completion: nil)
+    }
+}
+```
+#### Throwable functions with guard statements allow for reuse between views.
+
+```js
+// Checks data, response and error is nil
+func noResponse( data:Data?,response:URLResponse?,error:Error?) throws {
+    guard data != nil else {throw loginError.invalidConnection}
+    guard response != nil else {throw loginError.invalidConnection}
+    guard error == nil else {throw loginError.invalidConnection}
+}
+
+// Check user credentials login within loginviewcontroller
+func submit(Username:String,Password:String)throws{
+    guard Username != "" else {throw loginError.empty}
+    guard Password != "" else {throw loginError.empty}
+}
+
+// Check user pin information is not empty within AddPinviewcontroller
+func noPinData(userLocation:String?,userUrl:String?) throws {
+    guard userLocation != "" else {throw pinError.empty}
+    guard userUrl != "" else {throw pinError.empty}
+}
+```
+
+
+
 ---
 
 ## Request
 
-All JSON encodings are done through codable structs.
-
 ### Endpoints
 
-Endpoints are constructed using a struct to store strings and URLComponents to build a URL. This system allows for query to be added and kept separate from the viewController.
+Endpoints are constructed using a structs and URLComponents. This system allows for a query to be added and kept separate from the viewControllers.
 
 ```js
 struct onTheMapEndpoint {
@@ -137,9 +174,9 @@ var onthemapComponents:URLComponents{
 
 ### Request functions
 
-Post, Get and Delete request functions are all fairly similar. The idea is to make flexible functions that allow for easy reuse. Set time out interval is added to prevent hanging requests. If a request hangs longer than the set time out interval nil values will be returned. Post request takes two inputs url and json data while get and delete just url. Url param is the endpoint and json data is the payload. Three optional values are returned data, response and error, optional allow for nils to be returned. No error handling is done in the request.   
+Post, Get and Delete request functions are all fairly similar. The idea is to make flexible functions that allow for easy reuse. Set time out interval is added to prevent hanging requests. Post request takes two inputs, url and json. While get and delete just take url. Three optional values are returned; data, response and error. Optionals allow for nil values to be returned. No error handling is done in the request.   
 
-Example POST request
+#### Post request
 ```js
 public func postRequest(url:URL,jsonRequest:String,completionBlock:  @escaping  (Data?,URLResponse?,Error?)  -> Void) -> Void{
     var request = URLRequest(url:url,timeoutInterval: 5.0)
