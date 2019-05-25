@@ -11,6 +11,8 @@ import UIKit
 class TableViewController: UIViewController,UITableViewDelegate,UITableViewDataSource {
 
     let tableReuseIdentifier = "tcell" // table cell identifier
+    private let refreshControl = UIRefreshControl()
+    
     
     @IBOutlet weak var tableview: UITableView!
     
@@ -24,10 +26,16 @@ class TableViewController: UIViewController,UITableViewDelegate,UITableViewDataS
         super.viewDidLoad()
         tableview.dataSource = self
         tableview.delegate = self
+
+        //
     }
     
-    func viewWillLoad() {
+    @objc private func refreshWeatherData(_ sender: Any) {
+        // Fetch Weather Data
+        //
         self.tableview!.reloadData()
+        self.refreshControl.endRefreshing()
+        //self.activityIndicatorView.stopAnimating()
     }
     
     // tell the table view how many rows to make
@@ -43,7 +51,13 @@ class TableViewController: UIViewController,UITableViewDelegate,UITableViewDataS
         // Use the outlet in our custom class to get a reference to the UIImage in the cell
         cell.location.text = studentLocations?.results[indexPath.row].mapString ?? "Unknown"
         cell.urlLabel.text = studentLocations?.results[indexPath.row].mediaURL ?? "Unknown"
-        
+        // Add Refresh Control to Table View
+        if #available(iOS 10.0, *) {
+            tableView.refreshControl = refreshControl
+        } else {
+            tableView.addSubview(refreshControl)
+        }
+        refreshControl.addTarget(self, action: #selector(refreshWeatherData(_:)), for: .valueChanged)
         return cell
     }
     

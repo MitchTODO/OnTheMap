@@ -22,7 +22,7 @@ class MapViewController: UIViewController,UserLocationDelegate,MKMapViewDelegate
     @IBOutlet weak var refeshButton: UIBarButtonItem!
     @IBOutlet weak var createPinButton: UIBarButtonItem!
     @IBOutlet weak var logOutButton: UIBarButtonItem!
-    @IBOutlet weak var ListButton: UIBarButtonItem!
+    //@IBOutlet weak var ListButton: UIBarButtonItem!
     @IBOutlet weak var addLocationButton: UIButton!
     @IBOutlet weak var loadPinsOnMapIndicator: UIActivityIndicatorView!
     
@@ -100,8 +100,11 @@ class MapViewController: UIViewController,UserLocationDelegate,MKMapViewDelegate
         self.annotations.removeAll()
         // remove all studentLocation objects
         studentLocations?.results.removeAll()
+        
         // execute get Pins for studentLocations
         self.getPins()
+        
+        
     }
     
     
@@ -179,7 +182,7 @@ class MapViewController: UIViewController,UserLocationDelegate,MKMapViewDelegate
         createPinButton.isEnabled = Swap
         self.logOutButton.title = ButtonTitle
         self.logOutButton.tag = ButtonTag
-        ListButton.isEnabled = Swap
+        //ListButton.isEnabled = Swap
         addLocationButton.isHidden = Swap
     }
     
