@@ -1,6 +1,6 @@
 # On the Map
 
-#### Description: IOS app that allows a user to post locations containing a url. As well as view other users postings within a MKMapView
+#### IOS app that allows a user to post locations containing a url. As well as view other users postings within a MKMapView
 
 ---
 
